@@ -1,42 +1,35 @@
 import React, { useContext, useState } from "react";
-import {
-  ImageBackground,
-  View,
-  Dimensions,
-  Text,
-  SafeAreaView,
-} from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import { LayoutStyle } from "../LayoutStyle";
 import CustomTextInput from "../components/CustomTextInput";
 import LoginButton from "../components/LoginButton";
 import { color } from "../LayoutStyle";
 import { texts } from "../Texts";
 import firebase from "firebase/app";
-import { RegisterContext } from "../context/RegisterContext";
 import { AuthenticationContext } from "../context/AuthenticationContext";
+import { LoaderContext } from "../context/LoaderContext";
 
-
-const Login = ({ navigation }) => {
+const Login = () => {
   const layoutStyle = LayoutStyle();
   const { setAuthenticated, setUser } = useContext(AuthenticationContext);
-  const { register, setRegister } = useContext(RegisterContext);
-  const [messageError, setMessageError] = useState('');
-  const [email, setEmail] = useState("uc@ha.com");
-  const [password, setPassword] = useState("123456789");
-  const [auth, setAuth] = useState(false);
-  const [error, setError] = useState("");
+  const [messageError, setMessageError] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const { setLoader } = useContext(LoaderContext);
+
   const signIn = async () => {
-    
+    setLoader(true);
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then((item) => {
-        setUser({uid: item.user.uid})
+        setUser({ uid: item.user.uid });
         setAuthenticated(true);
+        setLoader(false);
       })
       .catch((error) => {
         console.log(error);
-        setMessageError('hatalı kullanıcı adı ya da parola');
+        setMessageError("hatalı kullanıcı adı ya da parola");
       });
   };
 
@@ -54,33 +47,45 @@ const Login = ({ navigation }) => {
         }}
       >
         <Text
-          style={[{
-            color: color.white,
-            textAlign: "center",
-            fontWeight: "100",
-          },layoutStyle.h2]}
+          style={[
+            {
+              color: color.white,
+              textAlign: "center",
+              fontWeight: "100",
+            },
+            layoutStyle.h2,
+          ]}
         >
           {texts.login_welcome}
         </Text>
         <Text
-          style={[{
-            color: color.white,
-            textAlign: "center",
-            fontWeight: "100",
-          },layoutStyle.h5]}
+          style={[
+            {
+              color: color.white,
+              textAlign: "center",
+              fontWeight: "100",
+            },
+            layoutStyle.h5,
+          ]}
         >
           {texts.login_text}
         </Text>
-        <View style={{flex:2, justifyContent: 'center',}}>
-        <CustomTextInput value={email} onChangeText={(e) => setEmail(e)} placeholder={"kullanıcı adı"} />
-        <CustomTextInput
-          value={password}
-          onChangeText={(e) => setPassword(e)}
-          placeholder={"parola"}
-          secureTextEntry={true}
-        />
+        <View style={{ flex: 2, justifyContent: "center" }}>
+          <CustomTextInput
+            value={email}
+            onChangeText={(e) => setEmail(e)}
+            placeholder={"kullanıcı adı"}
+          />
+          <CustomTextInput
+            value={password}
+            onChangeText={(e) => setPassword(e)}
+            placeholder={"parola"}
+            secureTextEntry={true}
+          />
         </View>
-        <Text style={{ color: 'red', textAlign: 'center' }}>{messageError}</Text>
+        <Text style={{ color: "red", textAlign: "center" }}>
+          {messageError}
+        </Text>
         <View style={{ flex: 1, justifyContent: "flex-end" }}>
           <LoginButton
             text="Giriş Yap"

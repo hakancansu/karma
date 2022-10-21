@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, TouchableOpacity, View } from "react-native";
+import { View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import LoginButton from "./LoginButton";
 import { color } from "../LayoutStyle";

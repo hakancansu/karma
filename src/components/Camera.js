@@ -1,24 +1,10 @@
-import React, { useState, useContext } from "react";
-import {
-  Button,
-  Image,
-  View,
-  Platform,
-  Text,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
+import React, { useState } from "react";
+import { Image, View, TouchableOpacity } from "react-native";
 import * as ImagePicker from "expo-image-picker";
-import { color } from "../LayoutStyle";
-import { texts } from "../Texts";
-import LoginButton from "./LoginButton";
-import { RegisterContext } from "../context/RegisterContext";
 
-
-export default function ImagePickerExample({onChange, value}) {
+export default function ImagePickerExample({ onChange, value }) {
   const [image, setImage] = useState(value);
   const pickImage = async () => {
-    // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -26,8 +12,7 @@ export default function ImagePickerExample({onChange, value}) {
       quality: 1,
     });
 
-     //console.log(result);
-     onChange(result)
+    onChange(result);
 
     if (!result.cancelled) {
       setImage(result.uri);
@@ -44,7 +29,7 @@ export default function ImagePickerExample({onChange, value}) {
       }}
     >
       <TouchableOpacity
-      onPress={pickImage}
+        onPress={pickImage}
         style={{
           width: 178,
           height: 178,
@@ -69,7 +54,7 @@ export default function ImagePickerExample({onChange, value}) {
             />
           )
         ) : (
-            <Image source={require("../assets/image/Vector.png")} />
+          <Image source={require("../assets/image/Vector.png")} />
         )}
       </TouchableOpacity>
     </View>

@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
 import {
-  ImageBackground,
   View,
-  Dimensions,
   Text,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import LoginButton from "../components/LoginButton";
 import Camera from "../components/Camera";
@@ -19,49 +18,53 @@ const CameraScreen = ({ navigation }) => {
   const { register, setRegister } = useContext(RegisterContext);
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: color.white, paddingHorizontal: 15}}>
-      <ProgressBar loaded={ register.uri ? '75%' :'50%'} />
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: color.white, paddingHorizontal: 15 }}
+    >
+      <ScrollView>
+        <ProgressBar loaded={register.uri ? "75%" : "50%"} />
 
-      <View
-        style={{
-          backgroundColor: color.black,
-          borderRadius: 20,
-          paddingHorizontal: 20,
-          height: 450,
-          marginTop: 50,
-          paddingTop: 80,
-          paddingBottom: 25,
-        }}
-      >
-        <Text
-          style={[
-            {
-              fontSize: 18,
-              color: color.white,
-              textAlign: "center",
-              fontWeight: "100",
-            },
-            layoutStyle.h5,
-          ]}
+        <View
+          style={{
+            backgroundColor: color.black,
+            borderRadius: 20,
+            paddingHorizontal: 20,
+            height: 450,
+            marginTop: 50,
+            paddingTop: 80,
+            paddingBottom: 25,
+          }}
         >
-          {texts.photograph}
-        </Text>
-        <Camera
-          onChange={(item) => {
-            setRegister({ ...register, uri: item.uri });
-          }}
-          value={register?.uri}
-        />
-        <LoginButton
-          disabled={register.uri ? false : true}
-          backgroundColor={color.white}
-          onPress={() => {
-            navigation.navigate("Password");
-          }}
-          text="Devam Et"
-          style={{ marginTop: 90 }}
-        />
-      </View>
+          <Text
+            style={[
+              {
+                fontSize: 18,
+                color: color.white,
+                textAlign: "center",
+                fontWeight: "100",
+              },
+              layoutStyle.h5,
+            ]}
+          >
+            {texts.photograph}
+          </Text>
+          <Camera
+            onChange={(item) => {
+              setRegister({ ...register, uri: item.uri });
+            }}
+            value={register?.uri}
+          />
+          <LoginButton
+            disabled={register.uri ? false : true}
+            backgroundColor={color.white}
+            onPress={() => {
+              navigation.navigate("Password");
+            }}
+            text="Devam Et"
+            style={{ marginTop: 90 }}
+          />
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

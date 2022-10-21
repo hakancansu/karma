@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { color } from "../LayoutStyle";
-import { texts } from "../Texts";
 import Login from "../screens/Login";
 import Welcome from "../screens/Welcome";
 import CameraScreen from "../screens/CameraScreen";
@@ -19,7 +17,6 @@ import "firebase/auth";
 import "firebase/firestore";
 import "firebase/storage";
 import { Likes } from "../screens/Likes";
-import LoginButton from "../components/LoginButton";
 
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
@@ -56,18 +53,6 @@ function Tabs() {
 }
 
 const Stack = createNativeStackNavigator();
-// const LoginStack = () => {
-//   const { isAuthenticated } = useContext(AuthenticationContext);
-//   return (
-//     <Stack.Navigator
-//       screenOptions={{
-//         headerShown: false,
-//       }}
-//     >
-//       <Stack.Screen name="Tabs" component={Tabs} />
-//     </Stack.Navigator>
-//   );
-// };
 
 const RegisterStack = () => {
   return (
@@ -100,12 +85,6 @@ const Main = () => {
   const { isAuthenticated } = useContext(AuthenticationContext);
 
   return (
-    //<NavigationContainer>
-    //    <Stack.Navigator>
-    //    <Stack.Screen name="Login" component={Login} />
-    //    <Stack.Screen name="HomePage" component={HomePage} />
-    //    </Stack.Navigator>
-    //  </NavigationContainer>
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{

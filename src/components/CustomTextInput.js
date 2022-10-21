@@ -1,8 +1,14 @@
 import React from "react";
-import { View, TextInput, Text } from "react-native";
+import { TextInput } from "react-native";
 import { color } from "../LayoutStyle";
 
-const CustomTextInput = ({style, onChangeText, value, placeholder,secureTextEntry}) => {
+const CustomTextInput = ({
+  style,
+  onChangeText,
+  value,
+  placeholder,
+  secureTextEntry,
+}) => {
   return (
     <TextInput
       style={[
@@ -18,9 +24,8 @@ const CustomTextInput = ({style, onChangeText, value, placeholder,secureTextEntr
           height: 50,
         },
         style,
-        
       ]}
-      secureTextEntry={secureTextEntry} 
+      secureTextEntry={secureTextEntry}
       onChangeText={onChangeText}
       value={value}
       placeholderTextColor={color.ink}
